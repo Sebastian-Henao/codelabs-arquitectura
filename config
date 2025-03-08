@@ -1,0 +1,9 @@
+[core]
+	repositoryformatversion = 0
+	filemode = true
+	bare = false
+	logallrefupdates = true
+	worktree = /home/ubuntu/curso-2025-1/.git
+[remote "origin"]
+	url = https://github.com/Sebastian-Henao/codelabs-arquitectura.git
+	fetch = +refs/heads/*:refs/remotes/origin/*
