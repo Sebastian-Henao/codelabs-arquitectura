@@ -1,29 +1,24 @@
 .data
-mensaje: .asciz "%ld \n"
+mensaje: .asciz "%ld\n"
 
 .text
-.global main
-.extern printf          # Indico que quiero utilizar la función printf de libc
+.globl main
+.extern printf		# Indico que quiero utilizar la funcion printf de libc
 
 main:
-        subq $8, %rsp   # Alineación de la pila
+	subq $8, %rsp	# Alineacion de datos
 
-        mov $1, %rax    # rax = 1 (inicio del contador)
+	mov $4, %rax	# rax = 4
+	mov $5, %rbx	# rbx = 5
+	add %rbx, %rax	# rax = rax + rbx
 
-ciclo:
-        # Bloque de impresión
-        movq  $mensaje, %rdi  # Dirección del formato
-        movq  %rbx, %rsi      # Pasar el valor de rax como argumento
-        mov  $0, %rax         # printf espera que rax sea 0 antes de la llamada
-        call printf
+	# Bloque de impresion
+	# printf("%ld\n", rax);
+	#	  rdi   ,  rsi
 
-        add $1, %rbx    # Incrementar contador
-        cmp $10, %rbx   # Comparar contador con 10
-        jle ciclo       # Si rax <= 10, repetir ciclo
+	movq $mensaje, %rdi
+	movq %rax, %rsi
+	xorq %rax, %rax	# rax = 0
+	call printf
 
-        addq $8, %rsp   # Restaurar alineación de la pila
-
-        # Salida del programa
-        mov $60, %rax   # Código de salida del sistema
-        xorq %rdi, %rdi # Código de retorno 0
-        syscall         # Llamar a la syscall exit
+	addq $8, %rsp	# Alineacion de datos original
